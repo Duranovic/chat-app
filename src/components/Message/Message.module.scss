@@ -1,0 +1,44 @@
+.message {
+  display: flex; // Use Flexbox for easy alignment
+  margin-bottom: 0.8rem; // Spacing between messages
+  align-items: flex-end; // Align to the bottom of the container
+  line-height: 1.5; // Make some space between lines of text for bigger messages
+
+  &.sent {
+    justify-content: flex-end;
+
+    .message_bubble {
+      background-color: rgb(230, 247, 255);
+      color: #252d31;
+      border-bottom-right-radius: 0; // No rounded corner on the sender's side
+    }
+  }
+
+  &.received {
+    justify-content: flex-start;
+
+    .message_bubble {
+      background-color: #f6f6f6;
+      color: #222;
+      border-bottom-left-radius: 0; // No rounded corner on the receiver's side
+    }
+  }
+}
+
+.message_bubble {
+  padding: 0.8rem 1.2rem;
+  border-radius: 1.1rem;
+  max-width: 70%; // Limit width to prevent very long messages from taking up too much space
+  word-wrap: break-word; // Allow long words to wrap to the next line
+  box-shadow: 0 0 3px gainsboro;
+  display: flex;
+  align-items: flex-end;
+  justify-content: start;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.message_timestamp {
+  font-size: 0.8em;
+  color: #999;
+}

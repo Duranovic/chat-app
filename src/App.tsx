@@ -1,215 +1,56 @@
 import "./App.scss";
+import ContactItem from "./components/ContactItem/ContactItem";
+import Header from "./components/Header/Header";
+import InputArea from "./components/InputArea/InputArea";
+import Message from "./components/Message/Message";
 
 function App() {
   return (
     <>
       <div className="chat-app">
         <div className="contact-list">
-          <div className="contact-item">
-            <img src="src/assets/person-1.jpeg" alt="Profile Picture" />
-            <div className="contact-info">
-              <h3>John Doe</h3>
-              <p>Last message...</p>
-            </div>
-          </div>
-
-          <div className="contact-item">
-            <img src="src/assets/person-2.jpeg" alt="Profile Picture" />
-            <div className="contact-info">
-              <h3>John Doe</h3>
-              <p>Last message...</p>
-            </div>
-          </div>
-
-          <div className="contact-item">
-            <img src="src/assets/person-3.jpeg" alt="Profile Picture" />
-            <div className="contact-info">
-              <h3>John Doe</h3>
-              <p>Last message...</p>
-            </div>
-          </div>
-
-          <div className="contact-item">
-            <img src="src/assets/person-11.jpeg" alt="Profile Picture" />
-            <div className="contact-info">
-              <h3>John Doe</h3>
-              <p>Last message...</p>
-            </div>
-          </div>
+          <ContactItem
+            imgSrc="src/assets/person-1.jpeg"
+            name="John Doe"
+            lastMessage="Last message..."
+            key="1"
+          />
+          <ContactItem
+            imgSrc="src/assets/person-2.jpeg"
+            name="John Doe"
+            lastMessage="Last message..."
+            key="2"
+          />
+          <ContactItem
+            imgSrc="src/assets/person-11.jpeg"
+            name="John Doe"
+            lastMessage="Last message..."
+            key="3"
+          />
+          <ContactItem
+            imgSrc="src/assets/person-12.jpeg"
+            name="John Doe"
+            lastMessage="Last message..."
+            key="4"
+          />
         </div>
         <div className="chat-window">
-          <div className="chat-header">
-            <img src="src/assets/person-1.jpeg" alt="User avatar" />
-            <h2>John Doe</h2>
-          </div>
-
+          <Header imgSrc="src/assets/person-1.jpeg" name="John Doe" />
           <div className="message-list">
-            <div className="message sent">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hey there! How's it going?
-                </span>
-                <span className="message-timestamp">10:32 AM</span>
-              </div>
-            </div>
-            <div className="message received">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hi! I'm doing well, thanks for asking. How about you?
-                </span>
-                <span className="message-timestamp">10:35 AM</span>
-              </div>
-            </div>
-            <div className="message sent">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hey there! How's it going?
-                </span>
-                <span className="message-timestamp">10:32 AM</span>
-              </div>
-            </div>
-            <div className="message received">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hi! I'm doing well, thanks for asking. How about you?
-                </span>
-                <span className="message-timestamp">10:35 AM</span>
-              </div>
-            </div>
-            <div className="message sent">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hey there! How's it going?
-                </span>
-                <span className="message-timestamp">10:32 AM</span>
-              </div>
-            </div>
-            <div className="message received">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hi! I'm doing well, thanks for asking. How about you?
-                </span>
-                <span className="message-timestamp">10:35 AM</span>
-              </div>
-            </div>
-            <div className="message sent">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hey there! How's it going?
-                </span>
-                <span className="message-timestamp">10:32 AM</span>
-              </div>
-            </div>
-            <div className="message received">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hi! I'm doing well, thanks for asking. How about you?
-                </span>
-                <span className="message-timestamp">10:35 AM</span>
-              </div>
-            </div>
-            <div className="message sent">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hey there! How's it going?
-                </span>
-                <span className="message-timestamp">10:32 AM</span>
-              </div>
-            </div>
-            <div className="message received">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hi! I'm doing well, thanks for asking. How about you?
-                </span>
-                <span className="message-timestamp">10:35 AM</span>
-              </div>
-            </div>
-            <div className="message sent">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hey there! How's it going?
-                </span>
-                <span className="message-timestamp">10:32 AM</span>
-              </div>
-            </div>
-            <div className="message received">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hi! I'm doing well, thanks for asking. How about you?
-                </span>
-                <span className="message-timestamp">10:35 AM</span>
-              </div>
-            </div>
-            <div className="message sent">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hey there! How's it going?
-                </span>
-                <span className="message-timestamp">10:32 AM</span>
-              </div>
-            </div>
-            <div className="message received">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hi! I'm doing well, thanks for asking. How about you?
-                </span>
-                <span className="message-timestamp">10:35 AM</span>
-              </div>
-            </div>
-            <div className="message sent">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hey there! How's it going?
-                </span>
-                <span className="message-timestamp">10:32 AM</span>
-              </div>
-            </div>
-            <div className="message received">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hi! I'm doing well, thanks for asking. How about you?
-                </span>
-                <span className="message-timestamp">10:35 AM</span>
-              </div>
-            </div>
-            <div className="message sent">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hey there! How's it going?
-                </span>
-                <span className="message-timestamp">10:32 AM</span>
-              </div>
-            </div>
-            <div className="message received">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hi! I'm doing well, thanks for asking. How about you?
-                </span>
-                <span className="message-timestamp">10:35 AM</span>
-              </div>
-            </div>
-            <div className="message sent">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hey there! How's it going?
-                </span>
-                <span className="message-timestamp">10:32 AM</span>
-              </div>
-            </div>
-            <div className="message received">
-              <div className="message-bubble">
-                <span className="message-content">
-                  Hi! I'm doing well, thanks for asking. How about you?
-                </span>
-                <span className="message-timestamp">10:35 AM</span>
-              </div>
-            </div>
+            <Message sent={true} content="Hey there! How's it going?" timestamp="10:32 AM" />
+            <Message sent={false} content="Hey there! How's it going?" timestamp="10:32 AM" />
+            <Message sent={true} content="Hey there! How's it going?" timestamp="10:32 AM" />
+            <Message sent={false} content="Hey there! How's it going?" timestamp="10:32 AM" />
+            <Message sent={true} content="Hey there! How's it going?" timestamp="10:32 AM" />
+            <Message sent={false} content="Hey there! How's it going?" timestamp="10:32 AM" />
+            <Message sent={true} content="Hey there! How's it going?" timestamp="10:32 AM" />
+            <Message sent={false} content="Hey there! How's it going?" timestamp="10:32 AM" />
+            <Message sent={true} content="Hey there! How's it going?" timestamp="10:32 AM" />
+            <Message sent={false} content="Hey there! How's it going?" timestamp="10:32 AM" />
+            <Message sent={true} content="Hey there! How's it going?" timestamp="10:32 AM" />
+            <Message sent={false} content="Hey there! How's it going?" timestamp="10:32 AM" />
           </div>
-
-          <div className="input-area">
-            <textarea placeholder="Type your message..."></textarea>
-            <button type="button">Send</button>
-          </div>
+          <InputArea />
         </div>
       </div>
     </>
