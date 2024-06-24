@@ -25,18 +25,15 @@ body {
 }
 
 .chat-window {
-  background-color: #fff;
+  background-color: #f9f9f9;
   box-shadow: 0 0 3px gainsboro;
   border-top-left-radius: 1rem;
 }
 
-.chat-window {
-  background-color: #fff;
+.chat-window {  
   display: flex; /* Use Flexbox for vertical layout */
   flex-direction: column;
   height: 100vh;
-
-  
 
   .message-list {
     flex-grow: 1; // Takes up remaining space

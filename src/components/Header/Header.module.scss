@@ -1,9 +1,11 @@
 .chat_header {
     padding: 1rem;
-    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 3px rgb(235, 235, 235);
     display: flex;
     align-items: center;
     gap: 0.8rem;
+    background-color: white;
+    z-index: 10;
 
     img {
       width: 3rem;
