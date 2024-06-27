@@ -1,17 +1,23 @@
 // ChatHeader.tsx
-
+import { useChatContext } from '../../context/ChatContext';
 import styles from './Header.module.scss';
 
-interface HeaderProps {
-  imgSrc: string;
-  name: string;
-}
+const Header = () => {
+    const context = useChatContext();
+    if (!context) {
+      throw new Error("ContactsList must be used within a ChatProvider");
+    }
+    const {state} = context;    
+    
+    const selectedContact = state.contacts.list.find(contact => contact.id === state.selectedContactId);
 
-const Header = ({ imgSrc, name }: HeaderProps) => (
-  <div className={styles.chat_header}>
-    <img src={imgSrc} alt="User avatar" />
-    <h2>{name}</h2>
-  </div>
-);
+    return (
+        <div className={styles.chat_header}>
+        <img src={selectedContact?.profileImage} alt="User avatar" />
+        <h2>{selectedContact?.name}</h2>
+      </div>
+    )
+}
+;
 
 export default Header;

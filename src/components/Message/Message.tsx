@@ -11,7 +11,7 @@ const Message = ({ sent, content, timestamp }: MessageProps) => (
   <div className={`${styles.message} ${sent ? styles.sent : styles.received}`}>
     <div className={styles.message_bubble}>
       <span className={styles.message_content}>{content}</span>
-      <span className={styles.message_timestamp}>{timestamp}</span>
+      <span className={styles.message_timestamp}>{new Date(timestamp).toLocaleTimeString([], {timeStyle: 'short'})}</span>
     </div>
   </div>
 );

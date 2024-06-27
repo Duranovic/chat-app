@@ -15,15 +15,6 @@ body {
   height: 100vh; /* Full viewport height */
 }
 
-.contact-list {
-  background-color: rgb(251, 251, 251);
-  overflow-y: auto; /* Enable scrolling for long contact lists */
-  padding: 0.5rem;
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
-  border-right: 1px solid rgb(235, 235, 235);
-}
-
 .chat-window {
   background-color: #f9f9f9;
   box-shadow: 0 0 3px gainsboro;
