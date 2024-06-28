@@ -8,6 +8,7 @@ export interface IState {
         pageSize: number,
         endOfList: boolean,
     },
+    messages: {recipientId: string, list: IMessage[]}[]
     selectedContactId: string | undefined;
 }
 
@@ -23,14 +24,16 @@ export interface IContact {
     id: string;
     name: string;
     profileImage: string;
-    latestMessage?: string;
+    latestMessage?: IMessage;
 }
 
-export type ChatActionType = SetContactsActionType | UpdateContactsActionType | SetSelectedContactActionType;
+export type ChatActionType = SetContactsActionType | UpdateContactsActionType | SetSelectedContactActionType | SendMessageActionType | SetMessagesActionType;
 
 export type SetContactsActionType = { type: 'SET_CONTACTS'; payload: { list: IContact[], endOfList: boolean } };
 export type UpdateContactsActionType = { type: 'UPDATE_CONTACTS'; payload: { list: IContact[], endOfList: boolean} }
 export type SetSelectedContactActionType = { type: 'SET_SELECTED_CONTACT'; payload: string };
+export type SendMessageActionType = { type: 'SEND_MESSAGE'; payload: IMessage };
+export type SetMessagesActionType = { type: 'SET_MESSAGES'; payload: {recipientId: string, list: IMessage[] }};
 
 
 interface IChatProviderProps {
@@ -49,6 +52,7 @@ const initialState: IState = {
         pageSize: 15,
         endOfList: false,
     },
+    messages: [],
     selectedContactId: undefined,
 };
 

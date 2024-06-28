@@ -62,8 +62,9 @@ const ContactList = () => {
           key={contact.id}
           name={contact.name}
           imgSrc={contact.profileImage}
-          lastMessage={contact.latestMessage || ""}
+          lastMessage={contact.latestMessage?.text || ""}
           onItemSelected={() => setSelectedContact(contact.id)}
+          active={contact.id === state.selectedContactId}
         />
       ))}
     </div>

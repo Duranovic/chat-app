@@ -55,13 +55,13 @@ export const CONTACTS: IContact[] = [
 ] as IContact[];
 
 // Function to find the latest message for a specific contact
-function getLatestMessageForContact(contactId: string): IMessage | null {
+function getLatestMessageForContact(contactId: string): IMessage | undefined {
     const messagesForContact = MESSAGES.filter(message =>
         message.senderId === contactId || message.recipientId === contactId
     );
 
     if (messagesForContact.length === 0) {
-        return null; 
+        return undefined; 
     }
 
     return messagesForContact.reduce((latest, current) => {
@@ -77,7 +77,7 @@ export const fetchContacts = (page: number, pageSize: number): Promise<IContact[
         const latestMessage = getLatestMessageForContact(contact.id);
         return { 
             ...contact, 
-            latestMessage: latestMessage ? latestMessage.text : undefined 
+            latestMessage: latestMessage 
         };
     });
 
