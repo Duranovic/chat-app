@@ -3,8 +3,12 @@
 import { FormEvent, useRef } from 'react';
 import styles from './InputArea.module.scss';
 
-const InputArea = ({onMessageSubmit}: any) => {
-  const messageInputRef = useRef<HTMLTextAreaElement>(null);
+interface InputAreaProps {
+  onMessageSubmit: (event: FormEvent)=>void;
+}
+
+const InputArea = ({onMessageSubmit}: InputAreaProps) => {
+  const messageInputRef = useRef<HTMLInputElement>(null);
 
   const handleSumbit = (event: FormEvent)=> {
       onMessageSubmit(event);
@@ -12,12 +16,11 @@ const InputArea = ({onMessageSubmit}: any) => {
       if(messageInputRef.current) {
         messageInputRef.current.value = '';
       }
-
   }
   
   return (
   <form className={styles.input_area} onSubmit={(event)=>handleSumbit(event)}>
-    <textarea placeholder="Type your message..." name='message' ref={messageInputRef}></textarea>
+    <input placeholder="Type your message..." name='message' ref={messageInputRef}></input>
     <button className={styles.send_message}>
         <img src="src/assets/paper-plane-color.png" alt="Send message" />
     </button>
