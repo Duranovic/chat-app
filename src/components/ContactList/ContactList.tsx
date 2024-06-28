@@ -4,6 +4,7 @@ import ContactItem from "../ContactItem/ContactItem";
 import styles from "./ContactList.module.scss";
 import { useScrollToEnd } from "../../hooks/useScrollToEnd";
 import { fetchContacts } from "../../data/contacts";
+import { SCROLL_ANCHOR } from "../../utils/constants";
 
 const ContactList = () => {
   const contactListRef = useRef(null);
@@ -49,7 +50,7 @@ const ContactList = () => {
     });
   }, [fetchContacts])
 
-  useScrollToEnd(contactListRef, loadMoreContacts);
+  useScrollToEnd(contactListRef, SCROLL_ANCHOR.BOTTOM, loadMoreContacts);
 
   useEffect(()=>{
     loadInitialContacts();

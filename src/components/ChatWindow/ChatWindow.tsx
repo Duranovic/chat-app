@@ -3,6 +3,7 @@ import MessageList from "../MessageList/MessageList";
 import { IMessage, useChatContext } from "../../context/ChatContext";
 import styles from "./ChatWindow.module.scss";
 import { useCallback } from "react";
+import { sendMessage } from "../../data/messages";
 
 const ChatWindow = () => {
   const context = useChatContext();
@@ -15,18 +16,13 @@ const ChatWindow = () => {
     (contact) => contact.id === state.selectedContactId
   );
 
-  const sendMessage = useCallback((event: any) => {    
+  const sendMessageHandle = useCallback((event: any) => {    
     event.preventDefault();  
-    console.log("CALLED SEND MESSAGE");
+    const newMessage = sendMessage("0", state.selectedContactId!, event.target[0].value);
+
     dispatch({
       type: 'SEND_MESSAGE',
-      payload: {
-      id: '000',
-      recipientId: state.selectedContactId,
-      senderId: '0',
-      text: event.target[0].value,
-      timestamp: new Date().toISOString(),
-      } as IMessage
+      payload: newMessage
     })
   }, [state.selectedContactId])
 
@@ -37,7 +33,7 @@ const ChatWindow = () => {
         <h2>{selectedContact?.name}</h2>
       </div>
       <MessageList recipientId={selectedContact?.id} userId={"0"} />
-      <InputArea onMessageSubmit={sendMessage}/>
+      <InputArea onMessageSubmit={sendMessageHandle}/>
     </div>
   ) : (
     <h2>No selected Contact!</h2>

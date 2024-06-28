@@ -1,6 +1,6 @@
 // InputArea.tsx
 
-import { FormEvent, useRef } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import styles from './InputArea.module.scss';
 
 interface InputAreaProps {
@@ -8,20 +8,21 @@ interface InputAreaProps {
 }
 
 const InputArea = ({onMessageSubmit}: InputAreaProps) => {
-  const messageInputRef = useRef<HTMLInputElement>(null);
+  const [value, setValue] = useState('');
+
+  const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  }
 
   const handleSumbit = (event: FormEvent)=> {
       onMessageSubmit(event);
-      // Clear form fields
-      if(messageInputRef.current) {
-        messageInputRef.current.value = '';
-      }
+      setValue('');
   }
   
   return (
   <form className={styles.input_area} onSubmit={(event)=>handleSumbit(event)}>
-    <input placeholder="Type your message..." name='message' ref={messageInputRef}></input>
-    <button className={styles.send_message}>
+    <input placeholder="Type your message..." name='message' value={value} onChange={handleValueChange}></input>
+    <button className={styles.send_message} disabled={value === ''}>
         <img src="src/assets/paper-plane-color.png" alt="Send message" />
     </button>
   </form>

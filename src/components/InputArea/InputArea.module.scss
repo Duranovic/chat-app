@@ -36,4 +36,9 @@
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
+
+    &:disabled {
+      filter: grayscale(1);
+      cursor: not-allowed;
+    }
   }

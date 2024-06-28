@@ -8,7 +8,13 @@ export interface IState {
         pageSize: number,
         endOfList: boolean,
     },
-    messages: {recipientId: string, list: IMessage[]}[]
+    messages: {
+        recipientId: string, 
+        list: IMessage[],
+        page: number,
+        pageSize: number,
+        endOfList: boolean,
+    }[]
     selectedContactId: string | undefined;
 }
 
@@ -27,14 +33,15 @@ export interface IContact {
     latestMessage?: IMessage;
 }
 
-export type ChatActionType = SetContactsActionType | UpdateContactsActionType | SetSelectedContactActionType | SendMessageActionType | SetMessagesActionType;
+export type ChatActionType = SetContactsActionType | UpdateContactsActionType | SetSelectedContactActionType | SendMessageActionType | SetMessagesActionType | UpdateMessagesActionType | SetMessagesEndOfListActionType;
 
 export type SetContactsActionType = { type: 'SET_CONTACTS'; payload: { list: IContact[], endOfList: boolean } };
 export type UpdateContactsActionType = { type: 'UPDATE_CONTACTS'; payload: { list: IContact[], endOfList: boolean} }
 export type SetSelectedContactActionType = { type: 'SET_SELECTED_CONTACT'; payload: string };
 export type SendMessageActionType = { type: 'SEND_MESSAGE'; payload: IMessage };
 export type SetMessagesActionType = { type: 'SET_MESSAGES'; payload: {recipientId: string, list: IMessage[] }};
-
+export type UpdateMessagesActionType = { type: 'UPDATE_MESSAGES'; payload: {recipientId: string, list: IMessage[] }};
+export type SetMessagesEndOfListActionType = { type: 'SET_MESSAGES_END_OF_LIST'; payload: {recipientId: string, endOfList: boolean }};
 
 interface IChatProviderProps {
     children: ReactNode;
