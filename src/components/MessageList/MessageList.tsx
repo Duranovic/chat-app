@@ -10,12 +10,8 @@ import { fetchMessages } from "../../data/messages";
 import { useScrollToEnd } from "../../hooks/useScrollToEnd";
 import { SCROLL_ANCHOR } from "../../utils/constants";
 
-interface MessageListProps {
-  userId: string;
-  recipientId: string;
-}
-
-const MessageList = ({ userId, recipientId }: MessageListProps) => {
+const MessageList = () => {
+  console.log('%c RENDER MESSAGE LIST!', 'background: orange; color: white');
   const context = useChatContext();
   if (!context) {
     throw new Error("ContactsList must be used within a ChatProvider");
@@ -23,14 +19,15 @@ const MessageList = ({ userId, recipientId }: MessageListProps) => {
   const messageListRef = useRef<HTMLDivElement>(null);
   const {state, dispatch} = context;
 
-  const messagesToShow = state.messages.find(item => item.recipientId === state.selectedContactId || item.recipientId === userId)?.list;
+  const recipientId = state.selectedContactId ?? "1";
+  const userId = "0";
+  const messagesToShow = state.messages.find(item => item.recipientId === state.selectedContactId || item.recipientId === userId)?.list ?? [];
+  const foundRecipient = state.messages.find(item=>item.recipientId === recipientId);
 
-  const loadFnc = useCallback(()=>{
-    console.log(state);
-    // Load initial messages
-    const findRecipient = state.messages.find(item=>item.recipientId === recipientId);
-    if(findRecipient && !findRecipient.endOfList) {
-      fetchMessages(userId, recipientId, findRecipient?.page, findRecipient?.pageSize).then((messages)=>{   
+  const loadMoreMessages = useCallback(()=>{
+    if(foundRecipient && !foundRecipient.endOfList) {
+      console.log('%c LOAD MORE MESSAGES! ' + foundRecipient?.page, 'background: red; color: white');
+      fetchMessages(userId, recipientId, foundRecipient?.page, foundRecipient?.pageSize).then((messages)=>{           
         dispatch({
           type: 'UPDATE_MESSAGES',
           payload: {
@@ -40,22 +37,19 @@ const MessageList = ({ userId, recipientId }: MessageListProps) => {
         })
       });
     }
-    
-  }, [state.messages])
+  }, [foundRecipient])
 
-  useScrollToEnd(messageListRef, SCROLL_ANCHOR.TOP, loadFnc);
-
-  useLayoutEffect(() => {
-    if (messageListRef.current) {
+  useLayoutEffect(() => {    
+    if (messageListRef.current && state.scrollToTheBottom) {
       messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
     }
-  }, [messagesToShow]);
+  }, [messagesToShow, state.scrollToTheBottom, recipientId]);
 
   useEffect(() => {
+    // If contact is found in the state, do not load initial messages again
     if(state.messages.find(item => item.recipientId === recipientId)) {
       return;
     }
-
     // Load initial messages
     fetchMessages(userId, recipientId, 1, 10).then((messages)=>{
       dispatch({
@@ -67,7 +61,9 @@ const MessageList = ({ userId, recipientId }: MessageListProps) => {
       })
     });
     
-  }, [state.messages, userId, recipientId]);
+  }, [recipientId]);
+
+  useScrollToEnd(messageListRef, SCROLL_ANCHOR.TOP, loadMoreMessages);
 
   return (
     <div className="message-list" ref={messageListRef}>

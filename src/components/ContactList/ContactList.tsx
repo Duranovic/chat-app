@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useRef } from "react";
-import { IContact, useChatContext } from "../../context/ChatContext";
+import { useChatContext } from "../../context/ChatContext";
 import ContactItem from "../ContactItem/ContactItem";
 import styles from "./ContactList.module.scss";
 import { useScrollToEnd } from "../../hooks/useScrollToEnd";
 import { fetchContacts } from "../../data/contacts";
 import { SCROLL_ANCHOR } from "../../utils/constants";
+import { IContact } from "../../models/contact.model";
 
 const ContactList = () => {
   const contactListRef = useRef(null);

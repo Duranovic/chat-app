@@ -1,5 +1,7 @@
 import { Dispatch, ReactNode, createContext, useContext, useReducer } from "react";
 import { chatReducer } from "../reducers/chatReducer";
+import { IContact } from "../models/contact.model";
+import { IMessage } from "../models/message.model";
 
 export interface IState {
     contacts: {
@@ -16,24 +18,10 @@ export interface IState {
         endOfList: boolean,
     }[]
     selectedContactId: string | undefined;
+    scrollToTheBottom: boolean
 }
 
-export interface IMessage {
-    id: string;
-    text: string;
-    senderId: string;
-    recipientId: string;
-    timestamp: string;
-}
-
-export interface IContact {
-    id: string;
-    name: string;
-    profileImage: string;
-    latestMessage?: IMessage;
-}
-
-export type ChatActionType = SetContactsActionType | UpdateContactsActionType | SetSelectedContactActionType | SendMessageActionType | SetMessagesActionType | UpdateMessagesActionType | SetMessagesEndOfListActionType;
+export type ChatActionType = SetContactsActionType | UpdateContactsActionType | SetSelectedContactActionType | SendMessageActionType | SetMessagesActionType | UpdateMessagesActionType | SetMessagesEndOfListActionType | SetMessageJustSentActionType;
 
 export type SetContactsActionType = { type: 'SET_CONTACTS'; payload: { list: IContact[], endOfList: boolean } };
 export type UpdateContactsActionType = { type: 'UPDATE_CONTACTS'; payload: { list: IContact[], endOfList: boolean} }
@@ -42,6 +30,7 @@ export type SendMessageActionType = { type: 'SEND_MESSAGE'; payload: IMessage };
 export type SetMessagesActionType = { type: 'SET_MESSAGES'; payload: {recipientId: string, list: IMessage[] }};
 export type UpdateMessagesActionType = { type: 'UPDATE_MESSAGES'; payload: {recipientId: string, list: IMessage[] }};
 export type SetMessagesEndOfListActionType = { type: 'SET_MESSAGES_END_OF_LIST'; payload: {recipientId: string, endOfList: boolean }};
+export type SetMessageJustSentActionType = { type: 'SET_MESSAGE_JUST_SENT'; payload: boolean};
 
 interface IChatProviderProps {
     children: ReactNode;
@@ -60,6 +49,7 @@ const initialState: IState = {
         endOfList: false,
     },
     messages: [],
+    scrollToTheBottom: false,
     selectedContactId: undefined,
 };
 

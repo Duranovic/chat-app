@@ -1,6 +1,6 @@
 import InputArea from "../InputArea/InputArea";
 import MessageList from "../MessageList/MessageList";
-import { IMessage, useChatContext } from "../../context/ChatContext";
+import { useChatContext } from "../../context/ChatContext";
 import styles from "./ChatWindow.module.scss";
 import { useCallback } from "react";
 import { sendMessage } from "../../data/messages";
@@ -32,7 +32,7 @@ const ChatWindow = () => {
         <img src={selectedContact?.profileImage} alt="User avatar" />
         <h2>{selectedContact?.name}</h2>
       </div>
-      <MessageList recipientId={selectedContact?.id} userId={"0"} />
+      <MessageList />
       <InputArea onMessageSubmit={sendMessageHandle}/>
     </div>
   ) : (

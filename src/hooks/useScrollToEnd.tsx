@@ -16,7 +16,9 @@ export const useScrollToEnd = (ref: RefObject<HTMLElement>, scrollType: scrollAn
         atEnd = scrollTop === 0;
       }
 
-      setIsAtEnd(atEnd);
+      if(atEnd) {
+        setIsAtEnd(atEnd);
+      }
     }, 200);
 
     const element = ref.current;
