@@ -1,12 +1,11 @@
-/* Add more styles for chat message display, input area, etc. */
 .contact_item {
   display: flex;
   align-items: center;
   padding: 1rem;
   cursor: pointer;
   border: none;
-  border-bottom: 1px solid #ddd; /* Gray horizontal line */
-  background-color: #fff; /* Initial background color */
+  border-bottom: 1px solid var(--secondary-color); /* Gray horizontal line */
+  background-color: var(--white); /* Initial background color */
   transition: background-color 0.2s ease; /* Smooth transition on hover */
 
   img {
@@ -29,13 +28,13 @@
   }
 
   &:hover {
-    background-color: rgb(230 247 255);
-    color: rgb(8 126 164);
+    background-color: var(--highlight-color);
+    color: var(--primary-color);
   }
 
   &.selected {
-    background-color: rgb(230 247 255);
-    color: rgb(8 126 164);
+    background-color: var(--highlight-color);
+    color: var(--primary-color);
   }
 }
 
@@ -53,8 +52,9 @@
   p {
     margin: 5px 0 0;
     font-size: 0.8rem;
-    color: #666;
+    color: var(--gray-500);
     text-align: left;
+    /* Add elipsis for long text/message */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

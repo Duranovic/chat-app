@@ -1,10 +1,10 @@
 .chat_header {
     padding: 1rem;
-    box-shadow: 0 2px 3px rgb(235, 235, 235);
+    box-shadow: 0 2px 3px var(--gray-50);
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    background-color: white;
+    background-color: var(--white-color);
     z-index: 10;
 
     img {
