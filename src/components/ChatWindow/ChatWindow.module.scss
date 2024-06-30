@@ -1,3 +1,12 @@
+.chat_window {  
+  display: flex; /* Use Flexbox for vertical layout */
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 3px gainsboro;
+  border-top-left-radius: 1rem;
+}
+
 .chat_header {
   padding: 1rem;
   box-shadow: 0 2px 3px rgb(235, 235, 235);

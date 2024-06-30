@@ -1,4 +1,4 @@
-import { IMessage } from "../context/ChatContext";
+import { IMessage } from "../models/message";
 
 export const MESSAGES = [
   {
@@ -317,7 +317,6 @@ export const fetchMessages = (
   page: number,
   pageSize: number
 ): Promise<IMessage[]> => {
-  console.log("FETCH MESSAGESE API", "PAGE SIZE: " + pageSize, "PAGE: ", JSON.stringify(page));
   const messages = MESSAGES.filter(
     (message) =>
       (message.senderId === userId && message.recipientId === recipientId) ||

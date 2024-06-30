@@ -1,18 +1,18 @@
 import { useCallback, useEffect, useRef } from "react";
-import { useChatContext } from "../../context/ChatContext";
+import { useContactContext } from "../../context/ContactContext";
 import ContactItem from "../ContactItem/ContactItem";
 import styles from "./ContactList.module.scss";
 import { useScrollToEnd } from "../../hooks/useScrollToEnd";
 import { fetchContacts } from "../../data/contacts";
 import { SCROLL_ANCHOR } from "../../utils/constants";
-import { IContact } from "../../models/contact.model";
+import { IContact } from "../../models/contact";
 
 const ContactList = () => {
   const contactListRef = useRef(null);
-  const context = useChatContext(); 
+  const context = useContactContext(); 
 
   if (!context) {
-    throw new Error("ContactsList must be used within a ChatProvider");
+    throw new Error("ContactsList must be used within a ContactProvider");
   }
   const { state, dispatch } = context;
 
@@ -40,16 +40,20 @@ const ContactList = () => {
   );
 
   const loadInitialContacts = useCallback(() =>{
+      // If contacts are already loaded in the state, do not load initial contacts again
+      if(state.contacts.page >= 2) {
+        return;
+      }
     fetchContacts(
       state.contacts.page,
       state.contacts.pageSize
     ).then(contacts => {
       dispatch({
           type: "SET_CONTACTS",
-          payload: { list: contacts ?? [],endOfList: contacts?.length === 0 },
+          payload: { list: contacts ?? [], endOfList: contacts?.length === 0 },
         });
     });
-  }, [fetchContacts])
+  }, [state.contacts.page, state.contacts.pageSize])
 
   useScrollToEnd(contactListRef, SCROLL_ANCHOR.BOTTOM, loadMoreContacts);
 

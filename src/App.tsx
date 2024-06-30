@@ -1,16 +1,19 @@
 import "./App.scss";
-import { ChatProvider } from "./context/ChatContext";
+import { ContactProvider } from "./context/ContactContext";
 import ContactList from "./components/ContactList/ContactList";
 import ChatWindow from "./components/ChatWindow/ChatWindow";
+import { MessagesProvider } from "./context/MessageContext";
 
 function App() {  
   return (
-    <ChatProvider>
+    <ContactProvider>
+      <MessagesProvider>      
       <div className="chat-app">
         <ContactList />
         <ChatWindow />
       </div>
-    </ChatProvider>
+      </MessagesProvider>
+    </ContactProvider>
   );
 }
 

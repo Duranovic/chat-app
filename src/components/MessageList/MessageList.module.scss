@@ -1,0 +1,5 @@
+.message_list {
+    flex-grow: 1; // Takes up remaining space
+    overflow-y: scroll; // Add scrollbar if messages overflow
+    padding: 2rem 4rem;
+  }  

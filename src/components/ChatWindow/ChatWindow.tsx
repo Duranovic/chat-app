@@ -1,33 +1,43 @@
 import InputArea from "../InputArea/InputArea";
 import MessageList from "../MessageList/MessageList";
-import { useChatContext } from "../../context/ChatContext";
+import { useContactContext } from "../../context/ContactContext";
 import styles from "./ChatWindow.module.scss";
 import { useCallback } from "react";
 import { sendMessage } from "../../data/messages";
+import { useMessagesContext } from "../../context/MessageContext";
 
 const ChatWindow = () => {
-  const context = useChatContext();
-  if (!context) {
-    throw new Error("ContactsList must be used within a ChatProvider");
-  }
-  const { state, dispatch } = context;
+  const contactContext = useContactContext();
+  if (!contactContext) {
+    throw new Error("ContactsList must be used within a ContactProvider");
+  }  
 
-  const selectedContact = state?.contacts?.list?.find(
-    (contact) => contact.id === state.selectedContactId
+  const messagesContext = useMessagesContext();
+  if (!messagesContext) {
+    throw new Error("ContactsList must be used within a MessagesProvider");
+  }  
+
+  const selectedContact = contactContext.state?.contacts?.list?.find(
+    (contact) => contact.id === contactContext.state.selectedContactId
   );
 
   const sendMessageHandle = useCallback((event: any) => {    
     event.preventDefault();  
-    const newMessage = sendMessage("0", state.selectedContactId!, event.target[0].value);
+    const newMessage = sendMessage("0", contactContext.state.selectedContactId!, event.target[0].value);
 
-    dispatch({
+    messagesContext?.dispatch({
       type: 'SEND_MESSAGE',
       payload: newMessage
-    })
-  }, [state.selectedContactId])
+    });
+
+    contactContext?.dispatch({
+      type: 'SET_CONTACT_LATEST_MESSAGE',
+      payload: newMessage
+    });
+  }, [contactContext?.state.selectedContactId])
 
   return selectedContact !== undefined ? (
-    <div className="chat-window">
+    <div className={styles.chat_window}>
       <div className={styles.chat_header}>
         <img src={selectedContact?.profileImage} alt="User avatar" />
         <h2>{selectedContact?.name}</h2>

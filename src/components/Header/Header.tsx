@@ -1,9 +1,9 @@
 // ChatHeader.tsx
-import { useChatContext } from '../../context/ChatContext';
+import { useContactContext } from '../../context/ContactContext';
 import styles from './Header.module.scss';
 
 const Header = () => {
-    const context = useChatContext();
+    const context = useContactContext();
     if (!context) {
       throw new Error("ContactsList must be used within a ChatProvider");
     }

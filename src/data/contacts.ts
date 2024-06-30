@@ -1,4 +1,4 @@
-import { IContact, IMessage } from "../context/ChatContext";
+import { IContact, IMessage } from "../context/ContactContext";
 import { MESSAGES } from "./messages";
 
 export const CONTACTS: IContact[] = [

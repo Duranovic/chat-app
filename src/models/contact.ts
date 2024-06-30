@@ -1,4 +1,4 @@
-import { IMessage } from "./message.model";
+import { IMessage } from "./message";
 
 export interface IContact {
     id: string;
