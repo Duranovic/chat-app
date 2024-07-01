@@ -1,7 +1,7 @@
-import { IContactState } from "../context/ContactContext";
-import { IAction } from "../models/action";
-import { IContact } from "../models/contact";
-import { compareTimestamps } from "../utils/timestampSortHelper";
+import { IContactState } from "../../context/ContactContext";
+import { IAction } from "../../models/action";
+import { IContact } from "../../models/contact";
+import { compareTimestamps } from "../../utils/timestampSortHelper/timestampSortHelper";
 
 export const contactReducer = (state: IContactState, action: IAction) => {
   switch (action.type) {

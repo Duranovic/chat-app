@@ -3,11 +3,11 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import styles from './InputArea.module.scss';
 
-interface InputAreaProps {
+export interface InputAreaProps {
   onMessageSubmit: (event: FormEvent)=>void;
 }
 
-const InputArea = ({onMessageSubmit}: InputAreaProps) => {
+export const InputArea = ({onMessageSubmit}: InputAreaProps) => {
   const [value, setValue] = useState('');
 
   const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {

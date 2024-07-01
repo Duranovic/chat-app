@@ -5,7 +5,7 @@ import {
   useContext,
   useReducer,
 } from "react";
-import { contactReducer } from "../reducers/contactReducer";
+import { contactReducer } from "../reducers/contactReducer/contactReducer";
 import { IContact } from "../models/contact";
 import { IMessage } from "../models/message";
 

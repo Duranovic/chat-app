@@ -1,5 +1,5 @@
-import { IMessagesState } from "../context/MessageContext";
-import { IAction } from "../models/action";
+import { IMessagesState } from "../../context/MessageContext";
+import { IAction } from "../../models/action";
 
 export const messageReducer = (state: IMessagesState, action: IAction) => {
   switch (action.type) {
@@ -68,11 +68,6 @@ export const messageReducer = (state: IMessagesState, action: IAction) => {
         ),
       };
     }
-    case "SET_MESSAGE_JUST_SENT":
-      return {
-        ...state,
-        justSent: action.payload,
-      };
 
     default:
       return state;

@@ -2,7 +2,7 @@ import debounce from 'lodash.debounce';
 import { RefObject, useEffect, useState } from 'react';
 import { SCROLL_ANCHOR, scrollAnchorType } from '../utils/constants';
 
-export const useScrollToEnd = (ref: RefObject<HTMLElement>, scrollType: scrollAnchorType, callback: () => void) => {
+export const useScrollToEnd = (ref: RefObject<HTMLElement>, scrollType: scrollAnchorType, callback: () => void): [boolean, (isAtEnd: boolean) => void] => {
   const [isAtEnd, setIsAtEnd] = useState(false);
 
   useEffect(() => {
@@ -40,4 +40,6 @@ export const useScrollToEnd = (ref: RefObject<HTMLElement>, scrollType: scrollAn
       callback();
     }
   }, [isAtEnd, callback]);
+
+  return [isAtEnd, setIsAtEnd]
 };

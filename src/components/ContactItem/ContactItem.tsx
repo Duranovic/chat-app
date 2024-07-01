@@ -2,8 +2,8 @@
 import styles from './ContactItem.module.scss';
 
 interface ContactItemProps {
-  imgSrc: string;
   name: string;
+  imgSrc?: string;
   lastMessage?: string;
   active: boolean;
   onItemSelected: ()=>void;
