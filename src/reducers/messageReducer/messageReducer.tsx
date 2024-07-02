@@ -1,5 +1,5 @@
-import { IMessagesState } from "../../context/MessageContext";
 import { IAction } from "../../models/action";
+import { IMessagesState } from "../../models/messageState";
 
 export const messageReducer = (state: IMessagesState, action: IAction) => {
   switch (action.type) {

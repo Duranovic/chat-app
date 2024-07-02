@@ -1,7 +1,7 @@
 import { contactReducer } from './contactReducer';
 import { IContact } from '../../models/contact';
 import { IMessage } from '../../models/message';
-import { IContactState } from '../../context/ContactContext';
+import { IContactState } from '../../models/contactState';
 
 describe('contactReducer', () => {
   const initialState: IContactState = {

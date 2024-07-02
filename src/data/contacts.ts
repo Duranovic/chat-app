@@ -1,4 +1,5 @@
-import { IContact, IMessage } from "../context/ContactContext";
+import { IContact } from "../models/contact";
+import { IMessage } from "../models/message";
 import { MESSAGES } from "./messages";
 
 export const CONTACTS: IContact[] = [

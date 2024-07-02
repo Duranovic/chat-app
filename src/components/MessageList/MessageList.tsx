@@ -83,23 +83,26 @@ const MessageList = () => {
 
   useScrollToEnd(messageListRef, SCROLL_ANCHOR.TOP, loadMoreMessages);
 
-  return messagesToShow.length > 0 ? (
-    <div className={styles.message_list} ref={messageListRef}>
-      {messagesToShow?.map((message) => (
-        <Message
-          key={message.id}
-          sent={userId === message.senderId}
-          content={message.text}
-          timestamp={message.timestamp}
+
+  return (
+      <div className={styles.message_list} ref={messageListRef}>
+      {messagesToShow.length > 0 ? (
+        messagesToShow.map((message) => (
+          <Message
+            key={message.id}
+            sent={userId === message.senderId}
+            content={message.text}
+            timestamp={message.timestamp}
+          />
+        ))
+      ) : (
+        <EmptyList
+          title="There are no messages!"
+          desscription="Start sending messages and they will appear here!"
+          image="src/assets/speech-bubble.png"
         />
-      ))}
+      )}
     </div>
-  ) : (
-    <EmptyList
-      title="There are no messages!"
-      desscription="Start sending messages and they will appear here!"
-      image="src/assets/speech-bubble.png"
-    />
   );
 };
 

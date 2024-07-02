@@ -1,5 +1,5 @@
 // ChatHeader.tsx
-import { useContactContext } from '../../context/ContactContext';
+import { useContactContext } from '../../hooks/useContactContext';
 import styles from './Header.module.scss';
 
 const Header = () => {

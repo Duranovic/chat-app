@@ -1,6 +1,6 @@
 import { messageReducer } from "./messageReducer";
 import { IMessage } from "../../models/message";
-import { IMessagesState } from "../../context/MessageContext";
+import { IMessagesState } from "../../models/messageState";
 
 describe("messageReducer", () => {
   const initialState: IMessagesState = {
