@@ -19,9 +19,14 @@ npm run dev
 ```
 
 ## Testing the project
-For testing purposes, the project uses JEST and React Testing Library
+For testing purposes, the project uses JEST and React Testing Library. <br>
 To test the project, use the following command:
 
 ```sh
 npm run test
+```
+
+## For running linter, use the following command
+```sh
+npm run lint
 ```

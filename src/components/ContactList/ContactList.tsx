@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useRef } from "react";
-import { useContactContext } from "../../context/ContactContext";
 import ContactItem from "../ContactItem/ContactItem";
 import styles from "./ContactList.module.scss";
 import { useScrollToEnd } from "../../hooks/useScrollToEnd";
 import { fetchContacts } from "../../data/contacts";
 import { SCROLL_ANCHOR } from "../../utils/constants";
 import { IContact } from "../../models/contact";
+import { useContactContext } from "../../hooks/useContactContext";
 
 const ContactList = () => {
   const contactListRef = useRef(null);
@@ -17,8 +17,8 @@ const ContactList = () => {
   const { state, dispatch } = context;
 
   const setSelectedContact = useCallback((id: string) => {
-    context.dispatch({ type: "SET_SELECTED_CONTACT", payload: id });
-  }, []);
+    dispatch({ type: "SET_SELECTED_CONTACT", payload: id });
+  }, [dispatch]);
   
 
   const loadMoreContacts = useCallback(
@@ -36,7 +36,7 @@ const ContactList = () => {
 
       }
     },
-    [state.contacts.endOfList, state.contacts.page, state.contacts.pageSize]
+    [state.contacts.endOfList, state.contacts.page, state.contacts.pageSize, dispatch]
   );
 
   const loadInitialContacts = useCallback(() =>{
@@ -53,7 +53,7 @@ const ContactList = () => {
           payload: { list: contacts ?? [], endOfList: contacts?.length === 0 },
         });
     });
-  }, [state.contacts.page, state.contacts.pageSize])
+  }, [state.contacts.page, state.contacts.pageSize, dispatch])
 
   useScrollToEnd(contactListRef, SCROLL_ANCHOR.BOTTOM, loadMoreContacts);
 

@@ -1,40 +1,47 @@
 import InputArea from "../InputArea/InputArea";
 import MessageList from "../MessageList/MessageList";
-import { useContactContext } from "../../context/ContactContext";
 import styles from "./ChatWindow.module.scss";
 import { useCallback } from "react";
 import { sendMessage } from "../../data/messages";
-import { useMessagesContext } from "../../context/MessageContext";
+import { useContactContext } from "../../hooks/useContactContext";
+import { useMessagesContext } from "../../hooks/useMessageContext";
+import { EmptyList } from "../EmptyList/EmptyList";
 
 const ChatWindow = () => {
   const contactContext = useContactContext();
   if (!contactContext) {
     throw new Error("ContactsList must be used within a ContactProvider");
-  }  
+  }
 
   const messagesContext = useMessagesContext();
   if (!messagesContext) {
     throw new Error("ContactsList must be used within a MessagesProvider");
-  }  
+  }
 
   const selectedContact = contactContext.state?.contacts?.list?.find(
     (contact) => contact.id === contactContext.state.selectedContactId
   );
 
-  const sendMessageHandle = useCallback((event: any) => {    
-    event.preventDefault();  
-    const newMessage = sendMessage("0", contactContext.state.selectedContactId!, event.target[0].value);
+  const sendMessageHandle = useCallback(
+    (value: string) => {
+      const newMessage = sendMessage(
+        "0",
+        contactContext.state.selectedContactId!,
+        value
+      );
 
-    messagesContext?.dispatch({
-      type: 'SEND_MESSAGE',
-      payload: newMessage
-    });
+      messagesContext?.dispatch({
+        type: "SEND_MESSAGE",
+        payload: newMessage,
+      });
 
-    contactContext?.dispatch({
-      type: 'SET_CONTACT_LATEST_MESSAGE',
-      payload: newMessage
-    });
-  }, [contactContext?.state.selectedContactId])
+      contactContext?.dispatch({
+        type: "SET_CONTACT_LATEST_MESSAGE",
+        payload: newMessage,
+      });
+    },
+    [contactContext, messagesContext]
+  );
 
   return selectedContact !== undefined ? (
     <div className={styles.chat_window}>
@@ -43,10 +50,14 @@ const ChatWindow = () => {
         <h2>{selectedContact?.name}</h2>
       </div>
       <MessageList />
-      <InputArea onMessageSubmit={sendMessageHandle}/>
+      <InputArea onMessageSubmit={sendMessageHandle} />
     </div>
   ) : (
-    <h2>No selected Contact!</h2>
+    <EmptyList
+      image="src/assets/phone.png"
+      title="Contact is not selected!"
+      desscription="Select a contact from the left side panel to start chatting"
+    />
   );
 };
 

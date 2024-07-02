@@ -2,51 +2,17 @@ import {
   Dispatch,
   ReactNode,
   createContext,
-  useContext,
   useReducer,
 } from "react";
 import { contactReducer } from "../reducers/contactReducer/contactReducer";
-import { IContact } from "../models/contact";
-import { IMessage } from "../models/message";
-
-export interface IContactState {
-  contacts: {
-    list: IContact[];
-    page: number;
-    pageSize: number;
-    endOfList: boolean;
-  };
-  selectedContactId: string | undefined;
-}
-
-export type ContactActionType =
-  | SetContactsActionType
-  | UpdateContactsActionType
-  | SetSelectedContactActionType
-  | SetLatestMessageActionType;
-
-export type SetContactsActionType = {
-  type: "SET_CONTACTS";
-  payload: { list: IContact[]; endOfList: boolean };
-};
-export type UpdateContactsActionType = {
-  type: "UPDATE_CONTACTS";
-  payload: { list: IContact[]; endOfList: boolean };
-};
-export type SetSelectedContactActionType = {
-  type: "SET_SELECTED_CONTACT";
-  payload: string;
-};
-export type SetLatestMessageActionType = {
-  type: "SET_CONTACT_LATEST_MESSAGE";
-  payload: IMessage;
-};
+import { IContactState } from "../models/contactState";
+import { ContactActionType } from "../models/contactAction";
 
 interface IContactProviderProps {
   children: ReactNode;
 }
 
-interface ContactContextProps {
+export interface ContactContextProps {
   state: IContactState;
   dispatch: Dispatch<ContactActionType>;
 }
@@ -61,7 +27,7 @@ const initialState: IContactState = {
   selectedContactId: undefined,
 };
 
-const ContactContext = createContext<ContactContextProps | undefined>(
+export const ContactContext = createContext<ContactContextProps | undefined>(
   undefined
 );
 
@@ -73,9 +39,4 @@ export const ContactProvider = ({ children }: IContactProviderProps) => {
       {children}
     </ContactContext.Provider>
   );
-};
-
-// Custom hook for easy access to context
-export const useContactContext = () => {
-  return useContext(ContactContext);
 };

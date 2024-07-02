@@ -1,22 +1,16 @@
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-} from "react";
-import { useContactContext } from "../../context/ContactContext";
+import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import Message from "../Message/Message";
 import { fetchMessages } from "../../data/messages";
 import { useScrollToEnd } from "../../hooks/useScrollToEnd";
 import { SCROLL_ANCHOR } from "../../utils/constants";
-import { useMessagesContext } from "../../context/MessageContext";
-import styles from './MessageList.module.scss';
+import styles from "./MessageList.module.scss";
+import { useContactContext } from "../../hooks/useContactContext";
+import { useMessagesContext } from "../../hooks/useMessageContext";
+import { EmptyList } from "../EmptyList/EmptyList";
 
 const MessageList = () => {
   const contactContext = useContactContext();
   const messagesContext = useMessagesContext();
-
-  console.log("RENDER MESSAGE");
 
   if (!contactContext) {
     throw new Error("MessageList must be used within a ContactProvider");
@@ -26,53 +20,70 @@ const MessageList = () => {
     throw new Error("MessageList must be used within a ChatProvider");
   }
 
-  const userId = "0";
-  const messageListRef = useRef<HTMLDivElement>(null);  
-  const recipientId = contactContext.state.selectedContactId ?? "1";
-  const messagesToShow = messagesContext.state.messages.find(item => item.recipientId === contactContext.state.selectedContactId || item.recipientId === userId)?.list ?? [];
-  const foundRecipient = messagesContext.state.messages.find(item=>item.recipientId === recipientId);
+  const { dispatch } = messagesContext;
 
-  const loadMoreMessages = useCallback(()=>{
-    if(foundRecipient && !foundRecipient.endOfList) {
-      fetchMessages(userId, recipientId, foundRecipient?.page, foundRecipient?.pageSize).then((messages)=>{           
-        messagesContext.dispatch({
-          type: 'UPDATE_MESSAGES',
+  const userId = "0";
+  const messageListRef = useRef<HTMLDivElement>(null);
+  const recipientId = contactContext.state.selectedContactId ?? "1";
+  const messagesToShow =
+    messagesContext.state.messages.find(
+      (item) =>
+        item.recipientId === contactContext.state.selectedContactId ||
+        item.recipientId === userId
+    )?.list ?? [];
+  const foundRecipient = messagesContext.state.messages.find(
+    (item) => item.recipientId === recipientId
+  );
+
+  const loadMoreMessages = useCallback(() => {
+    if (foundRecipient && !foundRecipient.endOfList) {
+      fetchMessages(
+        userId,
+        recipientId,
+        foundRecipient?.page,
+        foundRecipient?.pageSize
+      ).then((messages) => {
+        dispatch({
+          type: "UPDATE_MESSAGES",
           payload: {
             recipientId: recipientId,
             list: messages,
           },
-        })
+        });
       });
     }
-  }, [foundRecipient])
+  }, [foundRecipient, recipientId, dispatch]);
 
-  useLayoutEffect(() => {    
+  useLayoutEffect(() => {
     if (messageListRef.current && messagesContext.state.scrollToTheBottom) {
       messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
     }
-  }, [messagesToShow, messagesContext.state.scrollToTheBottom, recipientId]);
+  }, [messagesContext.state, recipientId]);
 
   useEffect(() => {
     // If contact is found in the state, do not load initial messages again
-    if(messagesContext.state.messages.find(item => item.recipientId === recipientId)) {
+    if (
+      messagesContext.state.messages.find(
+        (item) => item.recipientId === recipientId
+      )
+    ) {
       return;
     }
     // Load initial messages
-    fetchMessages(userId, recipientId, 1, 10).then((messages)=>{
-      messagesContext.dispatch({
-        type: 'SET_MESSAGES',
+    fetchMessages(userId, recipientId, 1, 10).then((messages) => {
+      dispatch({
+        type: "SET_MESSAGES",
         payload: {
           recipientId: recipientId,
           list: messages,
         },
-      })
+      });
     });
-    
-  }, [recipientId]);
+  }, [recipientId, messagesContext.state.messages, dispatch]);
 
   useScrollToEnd(messageListRef, SCROLL_ANCHOR.TOP, loadMoreMessages);
 
-  return (
+  return messagesToShow.length > 0 ? (
     <div className={styles.message_list} ref={messageListRef}>
       {messagesToShow?.map((message) => (
         <Message
@@ -83,6 +94,12 @@ const MessageList = () => {
         />
       ))}
     </div>
+  ) : (
+    <EmptyList
+      title="There are no messages!"
+      desscription="Start sending messages and they will appear here!"
+      image="src/assets/speech-bubble.png"
+    />
   );
 };
 

@@ -1,0 +1,17 @@
+.empty_list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+  
+    img {
+      max-width: 5rem;
+      margin-bottom: 1.5rem;
+    }
+  
+    p {
+      margin: 0;
+      color: var(--gray-500);
+    }  
+  }

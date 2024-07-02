@@ -1,40 +1,23 @@
-import { Dispatch, ReactNode, createContext, useContext, useReducer } from "react";
+import { Dispatch, ReactNode, createContext, useReducer } from "react";
 import { messageReducer } from "../reducers/messageReducer/messageReducer";
-import { IMessage } from "../models/message";
-
-export interface IMessagesState {
-    messages: {
-        recipientId: string; 
-        list: IMessage[];
-        page: number;
-        pageSize: number;
-        endOfList: boolean;
-    }[],
-    scrollToTheBottom: boolean;
-}
+import { MessageActionType } from "../models/messageAction";
+import { IMessagesState } from "../models/messageState";
 
 interface IMessagesProviderProps {
     children: ReactNode;
 }
 
-interface IMessagesContextProps {
+export interface IMessagesContextProps {
     state: IMessagesState;
     dispatch: Dispatch<MessageActionType>;
 }
-
-export type MessageActionType = SendMessageActionType | SetMessagesActionType | UpdateMessagesActionType | SetMessagesEndOfListActionType;
-
-export type SendMessageActionType = { type: 'SEND_MESSAGE'; payload: IMessage };
-export type SetMessagesActionType = { type: 'SET_MESSAGES'; payload: {recipientId: string, list: IMessage[] }};
-export type UpdateMessagesActionType = { type: 'UPDATE_MESSAGES'; payload: {recipientId: string, list: IMessage[] }};
-export type SetMessagesEndOfListActionType = { type: 'SET_MESSAGES_END_OF_LIST'; payload: {recipientId: string, endOfList: boolean }};
 
 const initialMessagesState: IMessagesState = {
     messages: [],
     scrollToTheBottom: true,
 };
 
-const MessagesContext = createContext<IMessagesContextProps | undefined>(undefined);
+export const MessagesContext = createContext<IMessagesContextProps | undefined>(undefined);
 
 export const MessagesProvider = ({ children }: IMessagesProviderProps) => {
     const [state, dispatch] = useReducer(messageReducer, initialMessagesState);
@@ -44,8 +27,4 @@ export const MessagesProvider = ({ children }: IMessagesProviderProps) => {
             {children}
         </MessagesContext.Provider>
     );
-};
-
-export const useMessagesContext = () => {
-    return useContext(MessagesContext);
 };

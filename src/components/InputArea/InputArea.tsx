@@ -4,7 +4,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import styles from './InputArea.module.scss';
 
 export interface InputAreaProps {
-  onMessageSubmit: (event: FormEvent)=>void;
+  onMessageSubmit: (value: string)=>void;
 }
 
 export const InputArea = ({onMessageSubmit}: InputAreaProps) => {
@@ -15,7 +15,8 @@ export const InputArea = ({onMessageSubmit}: InputAreaProps) => {
   }
 
   const handleSumbit = (event: FormEvent)=> {
-      onMessageSubmit(event);
+      event.preventDefault();
+      onMessageSubmit(value);
       setValue('');
   }
   

@@ -32,7 +32,7 @@ export const useScrollToEnd = (ref: RefObject<HTMLElement>, scrollType: scrollAn
         element.removeEventListener('scroll', handleScroll);
       }
     };
-  }, [ref]);
+  }, [ref, scrollType]);
 
   useEffect(() => {
     if (isAtEnd) {      
